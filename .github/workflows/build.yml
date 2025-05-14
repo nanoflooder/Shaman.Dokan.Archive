@@ -24,8 +24,7 @@ jobs:
       run: choco install dokany2
     
     - name: Restore NuGet packages
-      run: |
-        nuget restore Dokan2.Archive.sln
+      run: nuget restore Dokan2.Archive.sln
     
     - name: Build Solution (x64 Release)
       run: msbuild Dokan2.Archive.sln /p:Configuration=Release /p:Platform=x64 /p:DeployOnBuild=true /p:TargetFramework=net46 /p:RestoreForce=true
