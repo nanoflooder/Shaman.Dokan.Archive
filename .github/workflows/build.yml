@@ -21,4 +21,4 @@ jobs:
       run: nuget restore Dokan2.Archive.sln
       
     - name: Build
-      run: msbuild Dokan2.Archive.sln -t:Build -property:Configuration=Release -property:Platform=x64
+      run: msbuild Dokan2.Archive.sln -t:Build -property:Configuration=Release
