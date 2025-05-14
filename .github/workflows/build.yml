@@ -17,9 +17,6 @@ jobs:
     - name: Setup VS MSBuild
       uses: microsoft/setup-msbuild@v1
     
-    - name: Install .NET Framework 4.6 Targeting Pack
-      run: choco install dotnet4.6-targetpack --confirm
-    
     - name: Install Dokan
       run: choco install dokany2
     
