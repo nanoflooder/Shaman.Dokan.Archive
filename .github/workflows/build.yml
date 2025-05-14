@@ -18,51 +18,13 @@ jobs:
       uses: microsoft/setup-msbuild@v1
     
     - name: Install .NET Framework 4.6 Targeting Pack
-      run: choco install netfx-4.6-targetpack --confirm
+      run: choco install dotnet4.6-targetpack --confirm
     
     - name: Install Dokan
-      run: choco install dokan --version 1.4.0 --confirm
+      run: choco install dokan --confirm
     
     - name: Restore NuGet packages
       run: nuget restore Dokan2.Archive.sln
     
     - name: Build Solution (x64 Release)
       run: msbuild Dokan2.Archive.sln /p:Configuration=Release /p:Platform=x64 /p:DeployOnBuild=true
-    
-    - name: Create output directory
-      run: |
-        mkdir output
-        mkdir output\x64
-    
-    - name: Collect binaries
-      run: |
-        # Copy main executable and dependencies
-        copy "Dokan2.Archive\bin\x64\Release\*" output\x64\
-        copy "SevenZip\7z.dll" output\x64\
-        copy "SevenZip\7z64.dll" output\x64\
-        
-        # Copy any other required DLLs
-        copy "DokanNet\bin\x64\Release\*.dll" output\x64\
-        copy "Shaman.Dokan.Base\bin\Release\*.dll" output\x64\
-        
-        # Include SevenZipSharp if needed
-        copy "SevenZip\bin\Release\*.dll" output\x64\
-        
-        # Create a simple README
-        echo "Dokan2.Archive Application" > output\README.txt
-        echo "-------------------------" >> output\README.txt
-        echo "Required files:" >> output\README.txt
-        echo "- Dokan2.Archive.exe (main executable)" >> output\README.txt
-        echo "- 7z.dll/7z64.dll (SevenZip native libraries)" >> output\README.txt
-        echo "- DokanNet.dll (Dokan .NET wrapper)" >> output\README.txt
-    
-    - name: Zip output
-      uses: montudor/action-zip@v1
-      with:
-        args: zip -qq -r output.zip output
-    
-    - name: Upload artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: Dokan2.Archive-Release
-        path: output.zip
