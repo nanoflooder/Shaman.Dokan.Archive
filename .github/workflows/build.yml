@@ -25,15 +25,7 @@ jobs:
     
     - name: Restore NuGet packages
       run: |
-        nuget restore Dokan2.Archive.sln -MSBuildVersion 17
+        nuget restore Dokan2.Archive.sln
     
     - name: Build Solution (x64 Release)
-      run: |
-        $vsPath = &"${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.Component.MSBuild -property installationPath
-        & "$vsPath\MSBuild\Current\Bin\MSBuild.exe" `
-          Dokan2.Archive.sln `
-          /p:Configuration=Release `
-          /p:Platform=x64 `
-          /p:DeployOnBuild=true `
-          /p:TargetFramework=net46 `
-          /p:RestoreForce=true
+      run: msbuild Dokan2.Archive.sln /p:Configuration=Release /p:Platform=x64 /p:DeployOnBuild=true /p:TargetFramework=net46 /p:RestoreForce=true
