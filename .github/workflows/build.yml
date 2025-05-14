@@ -62,7 +62,7 @@ jobs:
         args: zip -qq -r output.zip output
     
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Dokan2.Archive-Release
         path: output.zip
