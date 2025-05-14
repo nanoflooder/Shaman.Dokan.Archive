@@ -22,3 +22,11 @@ jobs:
       
     - name: Build
       run: msbuild Dokan2.Archive.sln -t:Build -property:Configuration=Release
+    
+    - name: Publish artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: Binaries
+        path: |
+          **/bin/x64/Release/**
+          **/Stage/Release/**
