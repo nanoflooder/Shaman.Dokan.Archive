@@ -21,20 +21,7 @@ jobs:
       run: choco install netfx-4.6-targetpack --confirm
     
     - name: Install Dokan
-      run: |
-        $dokanUrl = "https://github.com/dokan-dev/dokany/releases/download/v2.3.0.1000/Dokan_x64.msi"
-        $installerPath = "$env:TEMP\Dokan_x64.msi"
-        Invoke-WebRequest -Uri $dokanUrl -OutFile $installerPath
-        msiexec /i "$installerPath" /quiet /qn /norestart
-        Start-Sleep -Seconds 10
-        
-        # Verify installation
-        if (Test-Path "C:\Program Files\Dokan\Dokan Library-2.3.0.1000") {
-          echo "Dokan installed successfully"
-        } else {
-          echo "Dokan installation failed"
-          exit 1
-        }
+      run: choco install dokany2
     
     - name: Restore NuGet packages
       run: nuget restore Dokan2.Archive.sln
