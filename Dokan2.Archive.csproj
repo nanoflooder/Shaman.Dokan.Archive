@@ -6,6 +6,7 @@
     <SignAssembly>false</SignAssembly>
     <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
     <Prefer32Bit>true</Prefer32Bit>
+    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
     <Platforms>x64</Platforms>
     <PackageId>Shaman.Dokan.Archive</PackageId>
     <AssemblyName>Dokan2.Archive</AssemblyName>
