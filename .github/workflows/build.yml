@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Add MSBuild to PATH
+    - name: Setup VS MSBuild
       uses: microsoft/setup-msbuild@v1
     
     - name: Install .NET Framework 4.6 Targeting Pack
@@ -24,7 +24,16 @@ jobs:
       run: choco install dokany2
     
     - name: Restore NuGet packages
-      run: nuget restore Dokan2.Archive.sln
+      run: |
+        nuget restore Dokan2.Archive.sln -MSBuildVersion 17
     
     - name: Build Solution (x64 Release)
-      run: msbuild Dokan2.Archive.sln /p:Configuration=Release /p:Platform=x64 /p:DeployOnBuild=true
+      run: |
+        $vsPath = &"${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.Component.MSBuild -property installationPath
+        & "$vsPath\MSBuild\Current\Bin\MSBuild.exe" `
+          Dokan2.Archive.sln `
+          /p:Configuration=Release `
+          /p:Platform=x64 `
+          /p:DeployOnBuild=true `
+          /p:TargetFramework=net46 `
+          /p:RestoreForce=true
